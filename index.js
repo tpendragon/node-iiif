@@ -2,7 +2,6 @@ const probe = require('probe-image-size');
 const mime = require('mime-types');
 const transform = require('./lib/transform');
 const IIIFError = require('./lib/error');
-const imagesize = require('image-size');
 
 const filenameRe = new RegExp('(color|gray|bitonal|default)\.(jpg|tif|gif|png)'); // eslint-disable-line no-useless-escape
 
@@ -40,34 +39,11 @@ class Processor {
   }
 
   async dimensions () {
-    var streamResolver = this.streamResolver;
-    var id = this.id;
-    return new Promise(function (resolve, reject) {
-      var totalChunk;
-      var length = 0;
-      var stream = streamResolver(id);
-      stream.on('data', function (c) {
-        length += c.length;
-        var newBuffer = Buffer.alloc(length);
-        if (!totalChunk) {
-          totalChunk = Buffer.alloc(c.length);
-          c.copy(totalChunk, 0);
-        }
-        totalChunk.copy(newBuffer, 0);
-        totalChunk = newBuffer;
-        try {
-          let info = imagesize(totalChunk);
-          if (info) {
-            stream.end();
-            resolve(info);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      });
-      stream.on('end', function () {
-        reject(new Error('Unable to find image size'));
-      });
+    console.log("Getting Dimensions");
+    var stream = this.streamResolver(this.id);
+    return probe(stream).then(result => {
+      stream.destroy();
+      return result;
     });
   }
 
