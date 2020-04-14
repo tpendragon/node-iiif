@@ -18,8 +18,9 @@
     "vips"
   ],
   "dependencies": {
-    "probe-image-size": "tpendragon/probe-image-size#debug_statements",
+    "image-size": "^0.8.3",
     "mime-types": "^2.1.21",
+    "probe-image-size": "tpendragon/probe-image-size#debug_statements",
     "sharp": "^0.25.2"
   },
   "devDependencies": {
