@@ -40,7 +40,10 @@ class Processor {
 
   async dimensions () {
     console.log("Getting Dimensions");
-    return probe(this.streamResolver(this.id));
+    var stream = this.streamResolver(this.id);
+    return probe(stream).then(result => {
+      stream.close();
+    });
   }
 
   async infoJson () {
