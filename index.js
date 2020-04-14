@@ -44,13 +44,14 @@ class Processor {
       this.sizeInfo = probe(this.streamResolver(this.id)).then(data => {
         this.sizeInfo = data;
         return this.sizeInfo;
-      }).catch(err => console.log(err));
+      }).catch(err => console.log("Got Error getting dimensions"));
     }
     console.log(this.sizeInfo);
     return this.sizeInfo;
   }
 
   async infoJson () {
+    try {
     console.log("Creating infoJson");
     var dim = await this.dimensions();
     console.log(dim);
@@ -82,6 +83,9 @@ class Processor {
     console.log("Generated doc");
     console.log("Returning doc");
     return { contentType: 'application/json', body: JSON.stringify(doc) };
+    } catch (err) {
+      console.log('Caught while executing', err.message);
+    }
   }
 
   pipeline (dim) {
