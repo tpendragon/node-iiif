@@ -39,16 +39,19 @@ class Processor {
   }
 
   dimensions () {
+    console.log("Getting Dimensions");
     if (this.sizeInfo == null) {
       this.sizeInfo = probe(this.streamResolver(this.id)).then(data => {
         this.sizeInfo = data;
         return this.sizeInfo;
       });
     }
+    console.log(this.sizeInfo);
     return this.sizeInfo;
   }
 
   async infoJson () {
+    console.log("Creating infoJson");
     var dim = await this.dimensions();
     var sizes = [];
     for (var size = [dim.width, dim.height]; size.every(x => x >= 64); size = size.map(x => Math.floor(x / 2))) {
@@ -75,7 +78,8 @@ class Processor {
         supports: ['regionByPx', 'sizeByW', 'sizeByWhListed', 'cors', 'regionSquare', 'sizeByDistortedWh', 'sizeAboveFull', 'canonicalLinkHeader', 'sizeByConfinedWh', 'sizeByPct', 'jsonldMediaType', 'regionByPct', 'rotationArbitrary', 'sizeByH', 'baseUriRedirect', 'rotationBy90s', 'profileLinkHeader', 'sizeByForcedWh', 'sizeByWh', 'mirroring']
       }]
     };
-
+    console.log("Generated doc");
+    console.log("Returning doc");
     return { contentType: 'application/json', body: JSON.stringify(doc) };
   }
 
@@ -106,6 +110,7 @@ class Processor {
   async execute () {
     try {
       if (this.filename === 'info.json') {
+        console.log("Returning INFO.json");
         return this.infoJson();
       } else {
         return this.iiifImage();
