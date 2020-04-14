@@ -38,7 +38,7 @@ class Processor {
     }
   }
 
-  dimensions () {
+  async dimensions () {
     console.log("Getting Dimensions");
     if (this.sizeInfo == null) {
       this.sizeInfo = probe(this.streamResolver(this.id)).then(data => {
