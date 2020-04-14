@@ -45,6 +45,9 @@ class Processor {
         this.sizeInfo = data;
         return this.sizeInfo;
       }).catch(err => console.log("Got Error getting dimensions", err.message));
+    } else {
+      console.log("Size info already found.");
+      console.log(this.sizeInfo);
     }
     console.log(this.sizeInfo);
     return this.sizeInfo;
