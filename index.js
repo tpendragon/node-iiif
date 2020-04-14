@@ -44,7 +44,7 @@ class Processor {
       this.sizeInfo = probe(this.streamResolver(this.id)).then(data => {
         this.sizeInfo = data;
         return this.sizeInfo;
-      }).catch(err => console.log("Got Error getting dimensions"));
+      }).catch(err => console.log("Got Error getting dimensions", err.message));
     }
     console.log(this.sizeInfo);
     return this.sizeInfo;
