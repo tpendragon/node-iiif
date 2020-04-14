@@ -42,7 +42,7 @@ class Processor {
     console.log("Getting Dimensions");
     var stream = this.streamResolver(this.id);
     return probe(stream).then(result => {
-      stream.close();
+      stream.destroy();
       return result;
     });
   }
