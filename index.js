@@ -44,7 +44,6 @@ class Processor {
   }
 
   async infoJson () {
-    try {
     console.log("Creating infoJson");
     var dim = await this.dimensions();
     console.log(dim);
@@ -76,9 +75,6 @@ class Processor {
     console.log("Generated doc");
     console.log("Returning doc");
     return { contentType: 'application/json', body: JSON.stringify(doc) };
-    } catch (err) {
-      console.log('Caught while executing', err.message);
-    }
   }
 
   pipeline (dim) {
@@ -109,9 +105,9 @@ class Processor {
     try {
       if (this.filename === 'info.json') {
         console.log("Returning INFO.json");
-        return this.infoJson();
+        return await this.infoJson();
       } else {
-        return this.iiifImage();
+        return await this.iiifImage();
       }
     } catch (err) {
       console.log('Caught while executing', err.message);
