@@ -41,10 +41,11 @@ class Processor {
 
   async dimensions () {
     var streamResolver = this.streamResolver;
+    var id = this.id;
     return new Promise(function (resolve, reject) {
       var totalChunk;
       var length = 0;
-      var stream = streamResolver(this.id);
+      var stream = streamResolver(id);
       stream.on('data', function (c) {
         length += c.length;
         var newBuffer = Buffer.alloc(length);
