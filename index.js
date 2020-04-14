@@ -44,7 +44,7 @@ class Processor {
       this.sizeInfo = probe(this.streamResolver(this.id)).then(data => {
         this.sizeInfo = data;
         return this.sizeInfo;
-      });
+      }).catch(err => console.log(err));
     }
     console.log(this.sizeInfo);
     return this.sizeInfo;
@@ -53,6 +53,7 @@ class Processor {
   async infoJson () {
     console.log("Creating infoJson");
     var dim = await this.dimensions();
+    console.log(dim);
     var sizes = [];
     for (var size = [dim.width, dim.height]; size.every(x => x >= 64); size = size.map(x => Math.floor(x / 2))) {
       sizes.push({ width: size[0], height: size[1] });
