@@ -43,6 +43,7 @@ class Processor {
     var stream = this.streamResolver(this.id);
     return probe(stream).then(result => {
       stream.close();
+      return result;
     });
   }
 
