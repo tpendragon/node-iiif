@@ -40,17 +40,7 @@ class Processor {
 
   async dimensions () {
     console.log("Getting Dimensions");
-    if (this.sizeInfo == null) {
-      this.sizeInfo = probe(this.streamResolver(this.id)).then(data => {
-        this.sizeInfo = data;
-        return this.sizeInfo;
-      }).catch(err => console.log("Got Error getting dimensions", err.message));
-    } else {
-      console.log("Size info already found.");
-      console.log(this.sizeInfo);
-    }
-    console.log(this.sizeInfo);
-    return this.sizeInfo;
+    return probe(this.streamResolver(this.id));
   }
 
   async infoJson () {
