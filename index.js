@@ -2,6 +2,7 @@ const probe = require('probe-image-size');
 const mime = require('mime-types');
 const transform = require('./lib/transform');
 const IIIFError = require('./lib/error');
+const Sharp = require('sharp');
 
 const filenameRe = new RegExp('(color|gray|bitonal|default)\.(jpg|tif|gif|png)'); // eslint-disable-line no-useless-escape
 
@@ -39,11 +40,10 @@ class Processor {
   }
 
   async dimensions () {
-    console.log("Getting Dimensions");
     var stream = this.streamResolver(this.id);
-    return probe(stream).then(result => {
+    return probe(this.streamResolver(this.id)).then((data) => {
       stream.destroy();
-      return result;
+      return data;
     });
   }
 
